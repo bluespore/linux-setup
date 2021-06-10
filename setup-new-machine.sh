@@ -1,6 +1,6 @@
 #!/bin/bash
 
-figlet "WARNING!" | lolcat -a -d 2 T
+figlet "WARNING!" | lolcat -a -d 2
 echo "This will perform a complete setup for a new machine."
 
 while true;
