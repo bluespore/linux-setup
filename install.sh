@@ -38,9 +38,9 @@ echo "Installing figlet and lolcat for visual shell output..."
 sudo apt-get install lolcat figlet
 
 # Ensure local bin available in path 
-echo "PATH=\"${DIR}:$PATH\"" >> ~/.profile
+echo "PATH=\"${DIR}:$PATH\"" >> ~/.bash_profile
 
-source ~/.profile
+source ~/.bash_profile
 
 echo "Install complete!"
 echo "Scripts can now referenced in your PATH and can be called directly."
