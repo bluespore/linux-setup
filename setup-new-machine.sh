@@ -16,7 +16,6 @@ done
 setup-shell.sh
 setup-dev-tools.sh
 setup-apps.sh
-customise-spotify.sh
 setup-thinkpad-battery.sh
 setup-logitech-mouse.sh
 setup-keys.sh
