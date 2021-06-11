@@ -14,6 +14,7 @@ declare -a SCRIPTS=(
     "setup-logitech-mouse.sh"
     "setup-new-machine.sh"
     "customise-spotify.sh"
+    "config-git.sh"
 )
 
 echo "Installing scripts to '${DIR}'"
