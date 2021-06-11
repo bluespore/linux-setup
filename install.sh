@@ -20,7 +20,7 @@ echo "Installing scripts to '${DIR}'"
 
 mkdir -p $DIR
 
-for s in "${SCRIPTS[@}]}"
+for s in "${SCRIPTS[@]}"
 do
     echo "Installing ${s}"
     path="$DIR/$s"
