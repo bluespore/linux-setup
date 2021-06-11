@@ -42,5 +42,5 @@ echo "PATH=\"${DIR}:$PATH\"" >> ~/.profile
 
 source ~/.profile
 
-echo "Install complete!" | lolcat 
+echo "Install complete!"
 echo "Scripts can now referenced in your PATH and can be called directly."
