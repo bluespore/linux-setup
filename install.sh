@@ -18,6 +18,8 @@ declare -a SCRIPTS=(
 
 echo "Installing scripts to '${DIR}'"
 
+sudo apt install curl
+
 mkdir -p $DIR
 
 for s in "${SCRIPTS[@]}"
