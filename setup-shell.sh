@@ -9,7 +9,7 @@ sudo apt-get install build-essential curl file git
 
 echo "Installing zsh and ohmyzsh..." | lolcat
 sudo apt install zsh
-chsh -s $(which zsh)
+chsh -s $(which zsh) $(whoami)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 echo "Installing homebrew..." | lolcat
