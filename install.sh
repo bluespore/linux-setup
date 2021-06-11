@@ -2,7 +2,7 @@
 
 # Bare bones retrieval of remote scripts for installation on the local machine 
 
-SCRIPT_DIR=~/.local/bin
+DIR=~/.local/bin
 
 declare -a SCRIPTS=(
     "setup-shell.sh"
