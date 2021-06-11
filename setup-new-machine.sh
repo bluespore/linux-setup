@@ -7,7 +7,7 @@ while true;
 do
     read -p "Are you sure this is what you want to do? [y|n]" yn
     case $yn in
-        [Yn]*) break;;
+        [Yy]*) break;;
         [Nn]*) exit;;
         *) echo "Please answer y or n";;
     esac
