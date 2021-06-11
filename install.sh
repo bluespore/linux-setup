@@ -20,7 +20,7 @@ echo "Installing scripts to '${DIR}'"
 
 sudo apt install curl
 
-mkdir -p $DIR
+mkdir -p "$DIR"
 
 for s in "${SCRIPTS[@]}"
 do
