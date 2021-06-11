@@ -14,20 +14,17 @@ chsh -s $(which zsh) $(whoami)
 
 echo "Installing homebrew..." | lolcat
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> /home/x19/.zprofile
+echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> ~/.profile
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 echo 'PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"' >> ~/.zshrc
-source ~/.zshrc
 
 echo "Installing fzf..." | lolcat
 brew install fzf
 $(brew --prefix)/opt/fzf/install
-source ~/.zshrc
 
 echo "Installing zoxide..." | lolcat
 brew install zoxide
 echo 'eval "$(zoxide init zsh)"' >> ~/.zshrc
-source ~/.zshrc
 
 echo "Installing ripgrep..." | lolcat
 sudo apt-get install ripgrep
