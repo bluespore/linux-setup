@@ -39,7 +39,7 @@ sudo apt-get install lolcat figlet
 
 # Ensure local bin available in path 
 # lolcat is available at /usr/games so must be included 
-echo "PATH=\"${DIR}:/usr/games/$PATH\"" >> ~/.bash_profile
+echo "PATH=\"${DIR}:/usr/games/:$PATH\"" >> ~/.bash_profile
 
 echo "Install complete!"
 echo "Scripts can now referenced in your PATH and can be called directly."
