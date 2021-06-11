@@ -7,7 +7,7 @@ figlet "Customise spotify" | lolcat -a -d 2
 sudo chmod a+wr /usr/share/spotify
 sudo chmod a+wr /usr/share/spotify/Apps -R
 
-echo "Installing spicetify..."
+echo "Installing spicetify..." | lolcat
 brew install khanhas/tap/spicetify-cli
 spicetify
 spicetify backup apply enable-devtool
