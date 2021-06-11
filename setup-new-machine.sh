@@ -21,4 +21,5 @@ setup-logitech-mouse.sh
 setup-keys.sh
 
 figlet "Setup complete!" | lolcat -a -d 2
-echo "You should reboot now." | lolcat
+echo "Rebooting..." | lolcat
+reboot
