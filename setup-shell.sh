@@ -7,10 +7,10 @@ echo "Remember to set your default shell to /bin/zsh in Konsole!" | lolcat
 echo "Installing build-essential, curl, file & git"
 sudo apt-get install build-essential curl file git
 
-echo "Installing zsh..."
+echo "Installing zsh and ohmyzsh..."
 sudo apt install zsh
 chsh -s $(which zsh)
-/bin/bash -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 echo "Installing homebrew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
