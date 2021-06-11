@@ -17,6 +17,8 @@ echo "Installing homebrew..." | lolcat
 echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> ~/.profile
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 echo 'PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"' >> ~/.zshrc
+echo 'PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"' >> ~/.bash_profile
+source ~/.bash_profile
 
 echo "Installing fzf..." | lolcat
 brew install fzf
