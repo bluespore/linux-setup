@@ -21,4 +21,5 @@ setup-thinkpad-battery.sh
 setup-logitech-mouse.sh
 setup-keys.sh
 
-figlet "Feels good, man" | lolcat -a -d 2
+figlet "Setup complete!" | lolcat -a -d 2
+echo "You should reboot now." | lolcat
