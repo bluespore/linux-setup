@@ -5,8 +5,8 @@ figlet "Setup dev tools" | lolcat -a -d 2
 echo "Installing cmake libevdev-dev libudev-dev libconfig++-dev..." | lolcat
 sudo apt install cmake libevdev-dev libudev-dev libconfig++-dev
 
-echo "Installing vim..." | lolcat
-sudo apt install vim
+echo "Installing neovim..." | lolcat
+brew install neovim
 
 echo "Installing npm..." | lolcat
 sudo apt-get install npm
