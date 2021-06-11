@@ -40,7 +40,5 @@ sudo apt-get install lolcat figlet
 # Ensure local bin available in path 
 echo "PATH=\"${DIR}:$PATH\"" >> ~/.bash_profile
 
-source ~/.bash_profile
-
 echo "Install complete!"
 echo "Scripts can now referenced in your PATH and can be called directly."
