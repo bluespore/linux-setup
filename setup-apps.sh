@@ -27,7 +27,11 @@ echo "Installing flameshot..." | lolcat
 sudo apt-get install flameshot
 
 echo "Installing obsidian.md..." | lolcat
-$(cd ~/Downloads; curl -O https://github.com/obsidianmd/obsidian-releases/releases/download/v0.12.4/obsidian_0.12.4_amd64.snap && sudo snap install --dangerous obsidian_0.12.4_amd64.snap && rm obsidian_0.12.4_amd64.snap)
+cd ~/Downloads; 
+curl -O https://github.com/obsidianmd/obsidian-releases/releases/download/v0.12.4/obsidian_0.12.4_amd64.snap 
+sudo snap install --dangerous obsidian_0.12.4_amd64.snap
+rm obsidian_0.12.4_amd64.snap
+cd ~
 
 # Specific version of spotify in order to customise with spicetify
 echo "Installing spotify..." | lolcat
