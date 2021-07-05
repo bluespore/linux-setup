@@ -93,4 +93,7 @@ augroup END
 syntax enable
 colorscheme night-owl
 
-
+" Remove background color on theme
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE
+hi! EndOfBuffer ctermbg=NONE guibg=NONE
