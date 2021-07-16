@@ -24,6 +24,7 @@ call plug#begin('~/.SpaceVim/bundle')
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'mhartington/nvim-typescript', { 'build': './install.sh' }
 Plug 'majutsushi/tagbar'
 Plug 'chrisbra/Colorizer'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -31,6 +32,11 @@ Plug 'styled-components/vim-styled-components'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'leafoftree/vim-vue-plugin'
+" Plug 'sbdchd/neoformat'
+" post install (yarn install | npm install) then load plugin only for editing supported files
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 " Plug 'alvan/vim-closetag'
 " Color schemes
 Plug 'haishanh/night-owl.vim'
@@ -97,3 +103,11 @@ colorscheme night-owl
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
 hi! EndOfBuffer ctermbg=NONE guibg=NONE
+
+" Ensure Prettier runs on save
+" autocmd BufWritePre *.js Neoformat
+
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_config_present = 1
+let g:prettier#quickfix_enabled = 0
+autocmd TextChanged,InsertLeave *.js,*.jsx,*.vue,*.mjs,*.ts,*.tsx,*.css,*.json,*.html PrettierAsync
