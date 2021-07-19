@@ -26,9 +26,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
 Plug 'folke/twilight.nvim'
-
-
-
 Plug 'chrisbra/Colorizer'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'styled-components/vim-styled-components'
@@ -51,6 +48,7 @@ Plug 'KeitaNakamura/neodark.vim'
 Plug 'zeis/vim-kolor'
 call plug#end()
 
+set undodir=~/.cache/nvim/undofile
 set nonu nornu " disable relative numbering
 set ai " enable auto indent
 set si " enable smart indent
@@ -100,9 +98,10 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 lua << EOF
   require("twilight").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
+    dimming = {
+      alpha = 0.5
+    },
+    context = 20
   }
 EOF
 
