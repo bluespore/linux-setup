@@ -24,14 +24,19 @@ call plug#begin('~/.SpaceVim/bundle')
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'mhartington/nvim-typescript', { 'build': './install.sh' }
 Plug 'majutsushi/tagbar'
+Plug 'folke/twilight.nvim'
+
+
+
 Plug 'chrisbra/Colorizer'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'styled-components/vim-styled-components'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'leafoftree/vim-vue-plugin'
+Plug 'ryanoasis/vim-devicons'
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 " Plug 'sbdchd/neoformat'
 " post install (yarn install | npm install) then load plugin only for editing supported files
 Plug 'prettier/vim-prettier', {
@@ -74,6 +79,8 @@ nmap <C-Z> :undo<CR>
 nmap <C-R> :redo<CR>
 " search open buffers
 nmap <C-B> :Buffer<CR>
+" DoGe (Document Generator)
+nmap <S-C> :DogeGenerate<CR>
 " ========================================
 " Color preferences
 " ========================================
@@ -83,11 +90,22 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+set encoding=UTF-8
+
 " For Neovim 0.1.3 and 0.1.4
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 "let g:neodark#use_256color = 1
 "let g:neodark#background = '#21252f'
+
+lua << EOF
+  require("twilight").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
 
 " GH style syntax highlighting for codeblocks in markdown files
 augroup markdown
@@ -109,7 +127,7 @@ hi! EndOfBuffer ctermbg=NONE guibg=NONE
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_config_present = 1
 let g:prettier#quickfix_enabled = 0
-autocmd TextChanged,InsertLeave *.js,*.jsx,*.vue,*.mjs,*.ts,*.tsx,*.css,*.json,*.html PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.vue,*.mjs,*.ts,*.tsx,*.css,*.json,*.html PrettierAsync
 let g:ale_fixers = {
       \'*': ['remove_trailing_lines', 'trim_whitespace'],
       \'javascript': ['prettier-eslint', 'eslint'],
@@ -117,7 +135,9 @@ let g:ale_fixers = {
       \}
 let g:ale_fix_on_save = 1
 let g:syntastic_javascript_eslint_args = ['--fix']
-set autoread
+" set autoread
 
 let g:NERDTreeIgnore = ['^node_modules$']
 let NERDTreeShowHidden = 1
+
+let g:deoplete#enable_at_startup = 1
