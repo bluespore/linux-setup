@@ -106,8 +106,18 @@ hi! EndOfBuffer ctermbg=NONE guibg=NONE
 
 " Ensure Prettier runs on save
 " autocmd BufWritePre *.js Neoformat
-
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_config_present = 1
 let g:prettier#quickfix_enabled = 0
 autocmd TextChanged,InsertLeave *.js,*.jsx,*.vue,*.mjs,*.ts,*.tsx,*.css,*.json,*.html PrettierAsync
+let g:ale_fixers = {
+      \'*': ['remove_trailing_lines', 'trim_whitespace'],
+      \'javascript': ['prettier-eslint', 'eslint'],
+      \'typescript': ['prettier-eslint', 'eslint']
+      \}
+let g:ale_fix_on_save = 1
+let g:syntastic_javascript_eslint_args = ['--fix']
+set autoread
+
+let g:NERDTreeIgnore = ['^node_modules$']
+let NERDTreeShowHidden = 1

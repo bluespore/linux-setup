@@ -27,7 +27,7 @@
     statusline_unicode_symbols = true
     # Enable vim compatible mode, avoid changing origin vim key bindings
     vimcompatible = true
-    filemanager = "defx" 
+    filemanager = "nerdtree" 
     filetree_direction = "left"
 
 
