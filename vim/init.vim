@@ -22,11 +22,13 @@ endif
 
 call plug#begin('~/.SpaceVim/bundle')
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+"Plug 'wellle/context.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
 Plug 'folke/twilight.nvim'
 Plug 'chrisbra/Colorizer'
+Plug 'rainglow/vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'styled-components/vim-styled-components'
 Plug 'jiangmiao/auto-pairs'
@@ -58,6 +60,9 @@ set cc=80 " render vertical rule N columns in
 " set cursorcolumn
 " set cursorline
 set guifont="JetBrains Mono"
+set number 
+set linespace=3
+set cursorline
 
 " ========================================
 " Key remapping
@@ -115,6 +120,7 @@ augroup END
 " Set the default load color scheme
 syntax enable
 colorscheme night-owl
+"colorscheme rainbow
 
 " Remove background color on theme
 hi! Normal ctermbg=NONE guibg=NONE
