@@ -29,6 +29,7 @@ Plug 'majutsushi/tagbar'
 Plug 'folke/twilight.nvim'
 Plug 'chrisbra/Colorizer'
 Plug 'rainglow/vim'
+Plug 'folke/zen-mode.nvim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'styled-components/vim-styled-components'
 Plug 'jiangmiao/auto-pairs'
@@ -139,10 +140,14 @@ let g:ale_fixers = {
       \'typescript': ['prettier-eslint', 'eslint']
       \}
 let g:ale_fix_on_save = 1
+let g:ale_set_balloons = 0
+let g:ale_lint_on_text_changed = 0 
+let g:ale_lint_on_insert_leave = 0
 let g:syntastic_javascript_eslint_args = ['--fix']
 " set autoread
 
 let g:NERDTreeIgnore = ['^node_modules$']
 let NERDTreeShowHidden = 1
+let g:NERDTreeWinPos = "right"
 
 let g:deoplete#enable_at_startup = 1
