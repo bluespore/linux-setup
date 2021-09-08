@@ -26,10 +26,10 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
-Plug 'folke/twilight.nvim'
+"Plug 'folke/twilight.nvim'
 Plug 'chrisbra/Colorizer'
 Plug 'rainglow/vim'
-Plug 'folke/zen-mode.nvim'
+"Plug 'folke/zen-mode.nvim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'styled-components/vim-styled-components'
 Plug 'jiangmiao/auto-pairs'
@@ -51,19 +51,7 @@ Plug 'KeitaNakamura/neodark.vim'
 Plug 'zeis/vim-kolor'
 call plug#end()
 
-set undodir=~/.cache/nvim/undofile
-set nonu nornu " disable relative numbering
-set ai " enable auto indent
-set si " enable smart indent
-set ts=4 " spaces a <Tab> creates
-set sw=4 " spaces an auto indent creates 
-set cc=80 " render vertical rule N columns in
-" set cursorcolumn
-" set cursorline
-set guifont="JetBrains Mono"
-set number 
-set linespace=3
-set cursorline
+
 
 " ========================================
 " Key remapping
@@ -102,14 +90,14 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 "let g:neodark#use_256color = 1
 "let g:neodark#background = '#21252f'
 
-lua << EOF
-  require("twilight").setup {
-    dimming = {
-      alpha = 0.5
-    },
-    context = 20
-  }
-EOF
+"lua << EOF
+"  require("twilight").setup {
+"    dimming = {
+"      alpha = 0.5
+"    },
+"    context = 20
+"  }
+"EOF
 
 
 " GH style syntax highlighting for codeblocks in markdown files
@@ -121,7 +109,6 @@ augroup END
 " Set the default load color scheme
 syntax enable
 colorscheme night-owl
-"colorscheme rainbow
 
 " Remove background color on theme
 hi! Normal ctermbg=NONE guibg=NONE
@@ -150,4 +137,19 @@ let g:NERDTreeIgnore = ['^node_modules$']
 let NERDTreeShowHidden = 1
 let g:NERDTreeWinPos = "right"
 
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
+
+set undodir=~/.cache/nvim/undofile
+set nonumber 
+set norelativenumber
+set ai " enable auto indent
+set si " enable smart indent
+set ts=4 " spaces a <Tab> creates
+set sw=4 " spaces an auto indent creates 
+"set cc=80 " render vertical rule N columns in
+" set cursorcolumn
+" set cursorline
+set guifont="JetBrains Mono"
+set number 
+set linespace=3
+set cursorline
