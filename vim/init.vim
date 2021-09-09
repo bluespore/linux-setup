@@ -22,14 +22,11 @@ endif
 
 call plug#begin('~/.SpaceVim/bundle')
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-"Plug 'wellle/context.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
-"Plug 'folke/twilight.nvim'
 Plug 'chrisbra/Colorizer'
 Plug 'rainglow/vim'
-"Plug 'folke/zen-mode.nvim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'styled-components/vim-styled-components'
 Plug 'jiangmiao/auto-pairs'
@@ -37,21 +34,13 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'leafoftree/vim-vue-plugin'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-" Plug 'sbdchd/neoformat'
-" post install (yarn install | npm install) then load plugin only for editing supported files
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
-" Plug 'alvan/vim-closetag'
 " Color schemes
 Plug 'haishanh/night-owl.vim'
-Plug 'arcticicestudio/nord-vim'
-Plug 'phanviet/vim-monokai-pro'
-Plug 'KeitaNakamura/neodark.vim'
 Plug 'zeis/vim-kolor'
 call plug#end()
-
-
 
 " ========================================
 " Key remapping
@@ -153,3 +142,4 @@ set guifont="JetBrains Mono"
 set number 
 set linespace=3
 set cursorline
+set complete-=i
