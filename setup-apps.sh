@@ -26,6 +26,12 @@ sudo snap install chromium
 echo "Installing flameshot..." | lolcat
 sudo apt-get install flameshot
 
+echo "Installing peek..." | lolcat
+sudo apt install peek
+
+echo "Installing kolourpaint..." | lolcat
+sudo apt-get install kolourpaint
+
 echo "Installing obsidian.md..." | lolcat
 cd ~/Downloads; 
 curl -O https://github.com/obsidianmd/obsidian-releases/releases/download/v0.12.4/obsidian_0.12.4_amd64.snap 
