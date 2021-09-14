@@ -1,13 +1,9 @@
-"=============================================================================
-" init.vim --- Entry file for neovim
-" Copyright (c) 2016-2020 Wang Shidong & Contributors
-" Author: Wang Shidong < wsdjeg@outlook.com >
-" URL: https://spacevim.org
-" License: GPLv3
-"=============================================================================
-
-" Load space vim setup
 execute 'source' fnamemodify(expand('<sfile>'), ':h').'/main.vim'
+
+
+" --------------------------------------------------------------
+"  Plugins
+" --------------------------------------------------------------
 
 " Enable automatic plugin management with vim-plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -16,78 +12,88 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" ========================================
-" Define plugins
-" ========================================
-
 call plug#begin('~/.SpaceVim/bundle')
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'majutsushi/tagbar'
-Plug 'chrisbra/Colorizer'
-Plug 'rainglow/vim'
-Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'styled-components/vim-styled-components'
-Plug 'jiangmiao/auto-pairs'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'leafoftree/vim-vue-plugin'
-Plug 'ryanoasis/vim-devicons'
-Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-Plug 'prettier/vim-prettier', {
+  " fzf fuzzy search implementation for vim
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+
+  " Highlight hex codes and named colours
+  Plug 'chrisbra/Colorizer'
+
+  " Colour highlighting for matching open-close pairs
+  Plug 'junegunn/rainbow_parentheses.vim'
+
+  " Syntax highlighting for CSS in template literal strings
+  Plug 'styled-components/vim-styled-components'
+
+  " Easy multi-cursor edit 
+  Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
+  " Syntax for Vue
+  Plug 'leafoftree/vim-vue-plugin'
+
+  " Icons for files 
+  Plug 'ryanoasis/vim-devicons'
+
+  " Similar to Docblockr - Auto annotated comments
+  Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+
+  " Prettier formatter 
+  Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
-" Color schemes
-Plug 'haishanh/night-owl.vim'
-Plug 'zeis/vim-kolor'
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] 
+  \ }
+
+  " Color schemes
+  Plug 'zeis/vim-kolor'
 call plug#end()
 
-" ========================================
-" Key remapping
-" ========================================
+" --------------------------------------------------------------
+"  Key binds
+" --------------------------------------------------------------
 
 " ctrl+p fzf files, not gitignored
 nmap <C-P> :GFiles<CR>
+
 " ctrl+shift+f fzf project files, for search term
 nmap <C-d> :Rg<CR>
+
 " ctrl+f fzf lines in current file
 nmap <C-F> :BLines<CR>
+
 " ctrl+h fzf recent files
 nmap <C-H> :History<CR>
+
 " undo
 nmap <C-Z> :undo<CR>
+
 " redo
 nmap <C-R> :redo<CR>
+
 " search open buffers
 nmap <C-B> :Buffer<CR>
+
 " DoGe (Document Generator)
 nmap <S-C> :DogeGenerate<CR>
-" ========================================
-" Color preferences
-" ========================================
 
-" If you have vim >=8.0 or Neovim >= 0.1.5
+" Open err list 
+nmap <C-L> :lopen<CR>
+
+" --------------------------------------------------------------
+"  Theme
+" --------------------------------------------------------------
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 if (has("termguicolors"))
  set termguicolors
 endif
 
 set encoding=UTF-8
 
-" For Neovim 0.1.3 and 0.1.4
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-"let g:neodark#use_256color = 1
-"let g:neodark#background = '#21252f'
-
-"lua << EOF
-"  require("twilight").setup {
-"    dimming = {
-"      alpha = 0.5
-"    },
-"    context = 20
-"  }
-"EOF
-
+" zeis/vim-kolor config
+let g:kolor_italic=1
+let g:kolor_build=1
+let g:kolor_underlined=1
 
 " GH style syntax highlighting for codeblocks in markdown files
 augroup markdown
@@ -95,51 +101,68 @@ augroup markdown
   au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 augroup END
 
-" Set the default load color scheme
-syntax enable
-colorscheme night-owl
+" applying schemes 
+syntax enable 
+colorscheme kolor
 
-" Remove background color on theme
+" remove background color on theme
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
 hi! EndOfBuffer ctermbg=NONE guibg=NONE
 
-" Ensure Prettier runs on save
-" autocmd BufWritePre *.js Neoformat
+" --------------------------------------------------------------
+"  Formatting
+" --------------------------------------------------------------
+
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_config_present = 1
 let g:prettier#quickfix_enabled = 0
 autocmd BufWritePre *.js,*.jsx,*.vue,*.mjs,*.ts,*.tsx,*.css,*.json,*.html PrettierAsync
+
 let g:ale_fixers = {
-      \'*': ['remove_trailing_lines', 'trim_whitespace'],
-      \'javascript': ['prettier-eslint', 'eslint'],
-      \'typescript': ['prettier-eslint', 'eslint']
-      \}
+\'*': ['remove_trailing_lines', 'trim_whitespace'],
+\'javascript': ['prettier-eslint', 'eslint'],
+\'typescript': ['prettier-eslint', 'eslint']
+\}
+let g:ale_pattern_options = {
+\ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+\ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+\}
+
 let g:ale_fix_on_save = 1
 let g:ale_set_balloons = 0
 let g:ale_lint_on_text_changed = 0 
 let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+let g:ale_open_list = 1
+let g:airline#extensions#ale#enabled = 1
+let g:ale_keep_list_window_open = 1
 let g:syntastic_javascript_eslint_args = ['--fix']
-" set autoread
+let g:ale_completion_autoimport = 1
+let g:ale_sign_column_always = 1
+let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
+
+" --------------------------------------------------------------
+"  Layout
+" --------------------------------------------------------------
 
 let g:NERDTreeIgnore = ['^node_modules$']
 let NERDTreeShowHidden = 1
 let g:NERDTreeWinPos = "right"
 
-let g:deoplete#enable_at_startup = 0
+" --------------------------------------------------------------
+"  General config
+" --------------------------------------------------------------
 
 set undodir=~/.cache/nvim/undofile
 set nonumber 
 set norelativenumber
 set ai " enable auto indent
 set si " enable smart indent
-set ts=4 " spaces a <Tab> creates
-set sw=4 " spaces an auto indent creates 
-"set cc=80 " render vertical rule N columns in
-" set cursorcolumn
-" set cursorline
-set guifont="JetBrains Mono"
-set number 
-set linespace=3
+set ts=2 " spaces a <Tab> creates
+set sw=2 " spaces an auto indent creates 
+set guifont="Fira Code"
 set cursorline
+
+" https://stackoverflow.com/questions/2169645/vims-autocomplete-is-excruciatingly-slow
 set complete-=i
