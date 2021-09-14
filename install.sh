@@ -9,7 +9,6 @@ declare -a SCRIPTS=(
     "setup-keys.sh"
     "setup-apps.sh"
     "setup-dev-tools.sh"
-    "setup-displaylink-dock.sh"
     "setup-thinkpad-battery.sh"
     "setup-logitech-mouse.sh"
     "setup-new-machine.sh"
