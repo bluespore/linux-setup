@@ -50,4 +50,5 @@ echo "Dropbox daemon will start after install, configure selective sync, and ens
 $(cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -)
 echo "Run the dropbox daemon to auto-start it when you're ready: ~/.dropbox-dist/dropboxd"
 
-echo "Don't forget plasma-integration for firefox: https://addons.mozilla.org/en-US/firefox/addon/plasma-integration/" | lolcat
+echo "Installing htop..." | lolcat
+sudo apt-get install htop
