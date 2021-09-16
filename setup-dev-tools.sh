@@ -43,6 +43,9 @@ sudo apt install redis
 echo "Installing meld..." | lolcat
 sudo apt install meld
 
+echo "Installing git-recent" | lolcat
+npm install --global git-recent
+
 echo "Creating code directory" | lolcat
 mkdir -p ~/code
 echo "~/code created" | lolcat 
