@@ -77,7 +77,7 @@ nmap <C-B> :Buffer<CR>
 nmap <S-C> :DogeGenerate<CR>
 
 " Open err list 
-nmap <C-L> :lopen<CR>
+nmap <C-L> :lopen<CR><S-Tab>
 
 " --------------------------------------------------------------
 "  Theme
@@ -157,6 +157,7 @@ let g:NERDTreeWinPos = "right"
 set undodir=~/.cache/nvim/undofile
 set nonumber 
 set norelativenumber
+set lz " lazy redraw
 set ai " enable auto indent
 set si " enable smart indent
 set ts=2 " spaces a <Tab> creates
@@ -166,3 +167,21 @@ set cursorline
 
 " https://stackoverflow.com/questions/2169645/vims-autocomplete-is-excruciatingly-slow
 set complete-=i
+
+
+" Check if NERDTree is open or active
+function! IsNTOpen()        
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+
+" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
+" file, and we're not in vimdiff
+function! SyncNT()
+  if &modifiable && IsNTOpen() && strlen(expand('%')) > 0 && !&diff
+    NERDTreeFind
+    wincmd p
+  endif
+endfunction
+
+" Highlight currently open buffer in NERDTree
+autocmd BufRead * call SyncNT()
