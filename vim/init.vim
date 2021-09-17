@@ -1,18 +1,14 @@
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/main.vim'
+set number
+let mapleader = ' '
 
-
-" --------------------------------------------------------------
-"  Plugins
-" --------------------------------------------------------------
-
-" Enable automatic plugin management with vim-plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.SpaceVim/bundle')
+call plug#begin("~/.vim/plugged")
+
   " fzf fuzzy search implementation for vim
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
@@ -37,6 +33,10 @@ call plug#begin('~/.SpaceVim/bundle')
 
   " Similar to Docblockr - Auto annotated comments
   Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+	Plug 'pangloss/vim-javascript'    " JavaScript support
+	Plug 'leafgarland/typescript-vim' " TypeScript syntax
+	Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
+	Plug 'jparise/vim-graphql'        " GraphQL syntax
 
   " Prettier formatter 
   Plug 'prettier/vim-prettier', {
@@ -50,6 +50,8 @@ call plug#begin('~/.SpaceVim/bundle')
 
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
@@ -83,6 +85,9 @@ nmap <S-C> :DogeGenerate<CR>
 
 " Open err list 
 nmap <C-L> :lopen<CR><S-Tab>
+
+" Source Vim configuration file and install plugins
+nnoremap <silent><leader>1 :source ~/.vimrc \| :PlugInstall<CR>
 
 " --------------------------------------------------------------
 "  Theme
@@ -151,13 +156,13 @@ let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
 let g:NERDTreeIgnore = ['^node_modules$']
 let NERDTreeShowHidden = 1
 let g:NERDTreeWinPos = "right"
+let g:fzf_layout = { 'down': '10' }
 
 " --------------------------------------------------------------
 "  General config
 " --------------------------------------------------------------
 
 set undodir=~/.cache/nvim/undofile
-set nonumber 
 set norelativenumber
 set lz " lazy redraw
 set ai " enable auto indent
@@ -166,6 +171,8 @@ set ts=2 " spaces a <Tab> creates
 set sw=2 " spaces an auto indent creates 
 set guifont="Fira Code"
 set cursorline
+set mouse=a
+set showmatch
 
 " https://stackoverflow.com/questions/2169645/vims-autocomplete-is-excruciatingly-slow
 set complete-=i
