@@ -141,7 +141,7 @@ autocmd BufWritePre *.js,*.jsx,*.vue,*.mjs,*.ts,*.tsx,*.css,*.json,*.html Pretti
 let g:NERDTreeIgnore = ['^node_modules$']
 let NERDTreeShowHidden = 1
 let g:NERDTreeWinPos = "right"
-let g:fzf_layout = { 'down': '10' }
+let g:fzf_layout = { 'down': '20' }
 
 " --------------------------------------------------------------
 "  General config
