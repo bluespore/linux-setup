@@ -1,5 +1,5 @@
 set number
-let mapleader = ' '
+let mapleader = " "
 
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -29,7 +29,8 @@ call plug#begin("~/.vim/plugged")
   Plug 'leafoftree/vim-vue-plugin'
 
   " Icons for files 
-  Plug 'ryanoasis/vim-devicons'
+	Plug 'scrooloose/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 
   " Similar to Docblockr - Auto annotated comments
   Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
@@ -51,7 +52,15 @@ call plug#begin("~/.vim/plugged")
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
 
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+	Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+	Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+	Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+	Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+	Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
+	Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+	Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
+	Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
 
 call plug#end()
 
@@ -111,6 +120,7 @@ syntax enable
 colorscheme embark
 let g:airline_theme = 'embark'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " remove background color on theme
 hi! Normal ctermbg=NONE guibg=NONE
@@ -120,39 +130,14 @@ hi! EndOfBuffer ctermbg=NONE guibg=NONE
 " --------------------------------------------------------------
 "  Formatting
 " --------------------------------------------------------------
-
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_config_present = 1
 let g:prettier#quickfix_enabled = 0
 autocmd BufWritePre *.js,*.jsx,*.vue,*.mjs,*.ts,*.tsx,*.css,*.json,*.html PrettierAsync
 
-let g:ale_fixers = {
-\'*': ['remove_trailing_lines', 'trim_whitespace'],
-\'javascript': ['prettier-eslint', 'eslint'],
-\'typescript': ['prettier-eslint', 'eslint']
-\}
-let g:ale_pattern_options = {
-\ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-\ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-\}
-
-let g:ale_fix_on_save = 1
-let g:ale_set_balloons = 0
-let g:ale_lint_on_text_changed = 0 
-let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_enter = 0
-let g:ale_open_list = 1
-let g:airline#extensions#ale#enabled = 1
-let g:ale_keep_list_window_open = 1
-let g:syntastic_javascript_eslint_args = ['--fix']
-let g:ale_completion_autoimport = 1
-let g:ale_sign_column_always = 1
-let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
-
 " --------------------------------------------------------------
 "  Layout
 " --------------------------------------------------------------
-
 let g:NERDTreeIgnore = ['^node_modules$']
 let NERDTreeShowHidden = 1
 let g:NERDTreeWinPos = "right"
@@ -177,6 +162,8 @@ set showmatch
 " https://stackoverflow.com/questions/2169645/vims-autocomplete-is-excruciatingly-slow
 set complete-=i
 
+" CoC extensions
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
 
 " Check if NERDTree is open or active
 function! IsNTOpen()        
