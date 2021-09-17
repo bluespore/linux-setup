@@ -45,7 +45,12 @@ call plug#begin('~/.SpaceVim/bundle')
   \ }
 
   " Color schemes
-  Plug 'zeis/vim-kolor'
+  "Plug 'sainnhe/sonokai'
+  Plug 'embark-theme/vim', { 'as': 'embark' }
+
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+
 call plug#end()
 
 " --------------------------------------------------------------
@@ -90,11 +95,6 @@ endif
 
 set encoding=UTF-8
 
-" zeis/vim-kolor config
-let g:kolor_italic=1
-let g:kolor_build=1
-let g:kolor_underlined=1
-
 " GH style syntax highlighting for codeblocks in markdown files
 augroup markdown
   au!
@@ -103,7 +103,9 @@ augroup END
 
 " applying schemes 
 syntax enable 
-colorscheme kolor
+colorscheme embark
+let g:airline_theme = 'embark'
+let g:airline#extensions#tabline#enabled = 1
 
 " remove background color on theme
 hi! Normal ctermbg=NONE guibg=NONE
