@@ -21,10 +21,6 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 echo "Installing beekeeper-studio..." | lolcat
 sudo snap install beekeeper-studio
 
-echo "Installing spacevim..." | lolcat
-curl -sLf https://spacevim.org/install.sh | bash
-echo "SpaceVim config files located at \n\t~/.SpaceVim/init.vim\n\t~/.SpaceVim.d/init.toml"
-
 echo "Installing watchman..." | lolcat
 brew install watchman
 
