@@ -24,17 +24,32 @@ call plug#begin("~/.vim/plugged")
 
   " Syntax for Vue
   Plug 'leafoftree/vim-vue-plugin'
+
+	" Configure custom leader menus
 	Plug 'dpretet/vim-leader-mapper'
 
 	" Git
 	Plug 'tpope/vim-fugitive'
 
-  " Icons for files 
+	" Open file to last known line
+	Plug 'farmergreg/vim-lastplace'
+
+	" NERDTree
 	Plug 'scrooloose/nerdtree'
+
+	" Highlight files open in buffer, in NERDTree
+	Plug 'PhilRunninger/nerdtree-buffer-ops'
+
+	" Indicate git status of files in NERDTree
+	Plug 'Xuyuanp/nerdtree-git-plugin'
+
+  " Icons for files 
 	Plug 'ryanoasis/vim-devicons'
 
   " Similar to Docblockr - Auto annotated comments
   Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+
+	" Syntax support
 	Plug 'pangloss/vim-javascript'    " JavaScript support
 	Plug 'leafgarland/typescript-vim' " TypeScript syntax
 	Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
@@ -46,16 +61,20 @@ call plug#begin("~/.vim/plugged")
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] 
   \ }
 
-  " Color schemes
+  " Embark colour scheme
   Plug 'embark-theme/vim', { 'as': 'embark' }
 
+	" Airline for status
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+
+	" Highlight closing tags
   Plug 'leafOfTree/vim-matchtag'
 
-	Plug 'PhilRunninger/nerdtree-buffer-ops'
-	Plug 'Xuyuanp/nerdtree-git-plugin'
+	" Vertical blocks with alternating colours for tab indents
+	Plug 'nathanaelkane/vim-indent-guides'
 
+	" CoC & plugins
 	Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 	Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
@@ -67,20 +86,19 @@ call plug#begin("~/.vim/plugged")
 	Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
 	Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
 	Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
-	Plug 'nathanaelkane/vim-indent-guides'
 
 call plug#end()
 
 " --------------------------------------------------------------
 "  Theme
 " --------------------------------------------------------------
+syntax enable 
+set encoding=UTF-8
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 if (has("termguicolors"))
  set termguicolors
 endif
-
-set encoding=UTF-8
 
 " GH style syntax highlighting for codeblocks in markdown files
 augroup markdown
@@ -90,15 +108,16 @@ augroup markdown
 augroup END
 
 " applying schemes 
-syntax enable 
 colorscheme embark
 let g:airline_theme = 'embark'
+
+" airline config
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#coc#enabled = 1
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}%{get(b:,'coc_git_blame','')}}
 
-" remove background color on theme
+" remove background color on theme to use terminal theme bg / transparency
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
 hi! EndOfBuffer ctermbg=NONE guibg=NONE
@@ -118,6 +137,8 @@ let g:vim_jsx_pretty_highlight_close_tag = 1
 let g:NERDTreeIgnore = ['^node_modules$']
 let NERDTreeShowHidden = 1
 let g:NERDTreeWinPos = "right"
+
+" fzf window tethered to base of screen, rather than floating
 let g:fzf_layout = { 'down': '20' }
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_color_change_percent = 5
@@ -132,23 +153,27 @@ let mapleader = "\<Space>"
 nnoremap <silent> <leader> :LeaderMapper "<Space>"<CR>
 vnoremap <silent> <leader> :LeaderMapper "<Space>"<CR>
 
+" file actions
 let fMenu = {'name': 'File',
 			\'f': [':Rg', 'rg project lines'],
 			\'t': [':call NTToggle()', 'NERDTree'],
 			\'h': [':History', 'fzf recent files'],
 			\}
 
+" buffer actions
 let bMenu = {'name': 'Buffer',
 			\'s': [":Buffer", 'fzf buffers'],
 			\'l': [":BLines", 'fzf lines'],
 			\'d': [":bd", 'Delete current'],
 			\}
 
+" git actions
 let gitMenu = {'name': 'Git',
 			\'u': [':CocCommand git.copyUrl', 'url for line'],
 			\'c': [':CocCommand git.showCommit', 'commit for line'],
 			\}
 
+" leader menu root
 let g:leaderMenu = {'name': 'Global',
 			\'1': [":source ~/.config/nvim/init.vim \| :PlugInstall", 'PlugInstall'],
 			\'b': [bMenu, 'Buffer'],
@@ -156,7 +181,7 @@ let g:leaderMenu = {'name': 'Global',
 			\'G': [gitMenu, 'Git']
 			\}
 
-" ctrl+p fzf files, not gitignored
+" ctrl p fuzzy search files that aren't git-ignored
 nmap <C-P> :GFiles<CR>
 
 " undo
@@ -181,7 +206,7 @@ set sw=2 " spaces an auto indent creates
 set guifont="Fira Code"
 set cursorline
 set number
-set mouse=a
+set mouse=a " enable mouse input everywhere
 set showmatch
 
 " https://stackoverflow.com/questions/2169645/vims-autocomplete-is-excruciatingly-slow
@@ -191,10 +216,9 @@ set complete-=i
 let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
 
 " --------------------------------------------------------------
-"  NERDTree
+"  NERDTree functions
 " --------------------------------------------------------------
-
-
+"  open nt to the current buffer file or close it already open
 function NTToggle()
     if &filetype == 'nerdtree' || exists("g:NERDTree") && g:NERDTree.IsOpen()
         :NERDTreeToggle
@@ -202,8 +226,6 @@ function NTToggle()
         :NERDTreeFind
     endif
 endfunction
-
-nnoremap <C-\> :call MyNerdToggle()<CR>
 
 " Check if NERDTree is open or active
 function! IsNTOpen()        
