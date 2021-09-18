@@ -86,6 +86,7 @@ set encoding=UTF-8
 augroup markdown
   au!
   au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+	au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 augroup END
 
 " applying schemes 
