@@ -1,6 +1,3 @@
-set number
-let mapleader = " "
-
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -27,10 +24,14 @@ call plug#begin("~/.vim/plugged")
 
   " Syntax for Vue
   Plug 'leafoftree/vim-vue-plugin'
+	Plug 'dpretet/vim-leader-mapper'
+
+	" Git
+	Plug 'tpope/vim-fugitive'
 
   " Icons for files 
 	Plug 'scrooloose/nerdtree'
-Plug 'ryanoasis/vim-devicons'
+	Plug 'ryanoasis/vim-devicons'
 
   " Similar to Docblockr - Auto annotated comments
   Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
@@ -46,57 +47,29 @@ Plug 'ryanoasis/vim-devicons'
   \ }
 
   " Color schemes
-  "Plug 'sainnhe/sonokai'
   Plug 'embark-theme/vim', { 'as': 'embark' }
 
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'leafOfTree/vim-matchtag'
+
+	Plug 'PhilRunninger/nerdtree-buffer-ops'
+	Plug 'Xuyuanp/nerdtree-git-plugin'
 
 	Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 	Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+	Plug 'neoclide/coc-git', { 'do': 'yarn install --frozen-lockfile' }
 	Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
 	Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
+	Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
+	Plug 'nathanaelkane/vim-indent-guides'
 
 call plug#end()
-
-" --------------------------------------------------------------
-"  Key binds
-" --------------------------------------------------------------
-
-" ctrl+p fzf files, not gitignored
-nmap <C-P> :GFiles<CR>
-
-" ctrl+shift+f fzf project files, for search term
-nmap <C-d> :Rg<CR>
-
-" ctrl+f fzf lines in current file
-nmap <C-F> :BLines<CR>
-
-" ctrl+h fzf recent files
-nmap <C-H> :History<CR>
-
-" undo
-nmap <C-Z> :undo<CR>
-
-" redo
-nmap <C-R> :redo<CR>
-
-" search open buffers
-nmap <C-B> :Buffer<CR>
-
-" DoGe (Document Generator)
-nmap <S-C> :DogeGenerate<CR>
-
-" Open err list 
-nmap <C-L> :lopen<CR><S-Tab>
-
-" Source Vim configuration file and install plugins
-nnoremap <silent><leader>1 :source ~/.vimrc \| :PlugInstall<CR>
 
 " --------------------------------------------------------------
 "  Theme
@@ -121,6 +94,8 @@ colorscheme embark
 let g:airline_theme = 'embark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#coc#enabled = 1
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}%{get(b:,'coc_git_blame','')}}
 
 " remove background color on theme
 hi! Normal ctermbg=NONE guibg=NONE
@@ -134,6 +109,7 @@ let g:prettier#autoformat = 1
 let g:prettier#autoformat_config_present = 1
 let g:prettier#quickfix_enabled = 0
 autocmd BufWritePre *.js,*.jsx,*.vue,*.mjs,*.ts,*.tsx,*.css,*.json,*.html PrettierAsync
+let g:vim_jsx_pretty_highlight_close_tag = 1
 
 " --------------------------------------------------------------
 "  Layout
@@ -142,11 +118,58 @@ let g:NERDTreeIgnore = ['^node_modules$']
 let NERDTreeShowHidden = 1
 let g:NERDTreeWinPos = "right"
 let g:fzf_layout = { 'down': '20' }
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_color_change_percent = 5
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+
+" --------------------------------------------------------------
+"  Leader key mappings
+" --------------------------------------------------------------
+nnoremap <Space> <Nop>
+let mapleader = "\<Space>"
+nnoremap <silent> <leader> :LeaderMapper "<Space>"<CR>
+vnoremap <silent> <leader> :LeaderMapper "<Space>"<CR>
+
+let fMenu = {'name': 'File',
+			\'f': [':Rg', 'rg project lines'],
+			\'t': [':call NTToggle()', 'NERDTree'],
+			\'h': [':History', 'fzf recent files'],
+			\}
+
+let bMenu = {'name': 'Buffer',
+			\'s': [":Buffer", 'fzf buffers'],
+			\'l': [":BLines", 'fzf lines'],
+			\'d': [":bd", 'Delete current'],
+			\}
+
+let gitMenu = {'name': 'Git',
+			\'u': [':CocCommand git.copyUrl', 'url for line'],
+			\'c': [':CocCommand git.showCommit', 'commit for line'],
+			\}
+
+let g:leaderMenu = {'name': 'Global',
+			\'1': [":source ~/.config/nvim/init.vim \| :PlugInstall", 'PlugInstall'],
+			\'b': [bMenu, 'Buffer'],
+			\'f': [fMenu, 'File'],
+			\'G': [gitMenu, 'Git']
+			\}
+
+" ctrl+p fzf files, not gitignored
+nmap <C-P> :GFiles<CR>
+
+" undo
+nmap <C-Z> :undo<CR>
+
+" redo
+nmap <C-R> :redo<CR>
+
+" DoGe (Document Generator)
+nmap <S-C> :DogeGenerate<CR>
 
 " --------------------------------------------------------------
 "  General config
 " --------------------------------------------------------------
-
 set undodir=~/.cache/nvim/undofile
 set norelativenumber
 set lz " lazy redraw
@@ -156,6 +179,7 @@ set ts=2 " spaces a <Tab> creates
 set sw=2 " spaces an auto indent creates 
 set guifont="Fira Code"
 set cursorline
+set number
 set mouse=a
 set showmatch
 
@@ -164,6 +188,21 @@ set complete-=i
 
 " CoC extensions
 let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+
+" --------------------------------------------------------------
+"  NERDTree
+" --------------------------------------------------------------
+
+
+function NTToggle()
+    if &filetype == 'nerdtree' || exists("g:NERDTree") && g:NERDTree.IsOpen()
+        :NERDTreeToggle
+    else
+        :NERDTreeFind
+    endif
+endfunction
+
+nnoremap <C-\> :call MyNerdToggle()<CR>
 
 " Check if NERDTree is open or active
 function! IsNTOpen()        
