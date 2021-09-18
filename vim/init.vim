@@ -130,6 +130,7 @@ let g:prettier#autoformat_config_present = 1
 let g:prettier#quickfix_enabled = 0
 autocmd BufWritePre *.js,*.jsx,*.vue,*.mjs,*.ts,*.tsx,*.css,*.json,*.html PrettierAsync
 let g:vim_jsx_pretty_highlight_close_tag = 1
+let g:import_sort_auto = 1
 
 " --------------------------------------------------------------
 "  Layout
