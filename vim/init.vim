@@ -166,6 +166,7 @@ let bMenu = {'name': 'Buffer',
 			\'s': [":Buffer", 'fzf buffers'],
 			\'l': [":BLines", 'fzf lines'],
 			\'d': [":bd", 'Delete current'],
+			\'c': ['%bdelete|edit #|normal `"', 'Close all but current']
 			\}
 
 " git actions
@@ -209,6 +210,7 @@ set cursorline
 set number
 set mouse=a " enable mouse input everywhere
 set showmatch
+set hidden " should allow buffer change with unsaved changes ('hides' it)
 
 " https://stackoverflow.com/questions/2169645/vims-autocomplete-is-excruciatingly-slow
 set complete-=i
