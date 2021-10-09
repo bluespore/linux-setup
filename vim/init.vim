@@ -74,6 +74,8 @@ call plug#begin("~/.vim/plugged")
 	" Vertical blocks with alternating colours for tab indents
 	Plug 'nathanaelkane/vim-indent-guides'
 
+  Plug 'edkolev/tmuxline.vim'
+
 	" CoC & plugins
 	Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 	Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
@@ -198,19 +200,32 @@ nmap <S-C> :DogeGenerate<CR>
 " --------------------------------------------------------------
 "  General config
 " --------------------------------------------------------------
-set undodir=~/.cache/nvim/undofile
-set norelativenumber
-set lz " lazy redraw
 set ai " enable auto indent
-set si " enable smart indent
-set ts=2 " spaces a <Tab> creates
-set sw=2 " spaces an auto indent creates 
-set guifont="Fira Code"
+set autoread " reload files if changed externally 
 set cursorline
-set number
-set mouse=a " enable mouse input everywhere
-set showmatch
+set expandtab
+set guifont="Fira Code"
 set hidden " should allow buffer change with unsaved changes ('hides' it)
+set history=999 " increase history levels from default of 20
+set lz " lazy redraw
+set mouse=a " enable mouse input everywhere
+set norelativenumber
+set number
+set shiftwidth=2
+set showmatch
+set si " enable smart indent
+set softtabstop=2
+set sw=2 " spaces an auto indent creates 
+set tabstop=2
+set ts=2 " spaces a <Tab> creates
+set ttyfast
+set undodir=~/.cache/nvim/undofile
+set undolevels=999 " increase undo levels from default of 100
+set nobackup 
+set nowritebackup
+set noswapfile
+set hlsearch " highlight searches
+set ignorecase smartcase " searches are case-insensitive unless they include a capital letter
 
 " https://stackoverflow.com/questions/2169645/vims-autocomplete-is-excruciatingly-slow
 set complete-=i
