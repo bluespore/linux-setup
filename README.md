@@ -39,3 +39,15 @@ All managed via the i3 config, and should transfer across systems easily now
 - Shift+Ctrl+4 - take screenshot with flameshot
 - Mod+Shift+p - Power menu
 
+## Auto mount back-up SD card on boot
+
+Modify `fstab` (filesystem table) under `/etc/fstab` 
+
+```
+UUID=7c4f6a75-32a2-4f2f-820c-65e85b9969e0 /mnt/backup-sd ext4    auto,nofail,noatime,rw,user 0 0
+```
+
+## System conf files 
+
+- ./new/20-intel.conf => `/etc/X11/xorg.conf.d/20-intel.conf`
+- ./new/40-libinput.conf => `/usr/share/X11/xorg.conf.d/40-libinput.conf`
