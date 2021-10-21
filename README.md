@@ -51,3 +51,8 @@ UUID=7c4f6a75-32a2-4f2f-820c-65e85b9969e0 /mnt/backup-sd ext4    auto,nofail,noa
 
 - ./new/20-intel.conf => `/etc/X11/xorg.conf.d/20-intel.conf`
 - ./new/40-libinput.conf => `/usr/share/X11/xorg.conf.d/40-libinput.conf`
+
+## Backups 
+
+- backintime automatically creates a backup of /home every night on /mnt/backup-sd/backintime-manjaro
+- timeshift automatically creates snapshots of the system every night on /mnt/backup-sd
