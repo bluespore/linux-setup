@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Create lists of packages installed across the system such that 
+# they can be used for install scripts later on. You'd ideally run 
+# this on every system boot so you don't need to think about it.
+# Follow-up with a script that syncs the output somewhere upstream 
+# on a git remote.
+
+# globally installed npm packages
+# 1. global list 
+# 2. pipe; delete line prefixes
+# 3. pipe; remove lines refering to install location
+# 4. pipe; remove empty lines
+# 5. output to final location
+npm list -g --depth 0 | tr -d "├── " | grep -v "/home" | grep -v -e "^$" > ~/.bak/npmg-list
+
+# pacman packages 
+# including AUR packages due to the augmentation of `yay` to utilise 
+# common `pacman -S`commands to manage user repositories
+# 1. list packages that were installed explicitly (inc AUR)
+# 2. output to final location
+sudo pacman -Qqe > ~/.bak/pacman-list
