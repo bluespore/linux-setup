@@ -9,42 +9,11 @@ Personal configuration scripts for Manjaro linux (Thinkpad X1 Carbon Gen 6)
     - NB. LUKS will require password on system boot
   - swap partition, ~50% of RAM, not really used with SSDs
 - Run install script from repo
-  - runs mkdir 
-  - sys updates, base-devel and git
-  - git clone linux-setup to ~/.linux-setup
-  - chsh
-  - rsync scripts (home OK, system TODO)
-  - pacman, aur & npm installs (must be done after rsync, due to npmg install dir configured in zshrc)
-  - fix perms on i3lock
-  - autocpu-freq
 
-## Install steps
+# Install script
 
-type | cmd | desc
---- |--- | ---
-scripted | `mkdir -p ~/.bak ~/code ~/work ~/screenshots ~/.npm-global ~/.n ~/.local/bin ~/.bluespore-linux-setup` | dir structure
-scripted | `sudo pacman -Syyu` | upgrade system and packages
-scripted | `sudo pacman -S --noconfirm yay` | install yay for AUR packages
-scripted | `sudo pacman -S --noconfirm git base-devel` | required tools to build upon others for system setup
-scripted | `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended` | install ohmyzsh
-scripted | `chsh -s $(which zsh) $(whoami)` | change default shell to zsh`
-scripted | `git clone git@github.com:bluespore/linux-setup.git ~/.bluespore-linux-setup`
-manual | `reboot` | possibly need to reboot, log back in before continuing
-scripted | `echo "prefix=/home/$(whoami)/.npm-global" >> ~/.npmrc` | ensure new global npm install location is registered
-scripted | `~/.bluespore-linux-setup/cp-home && ~/.bluespore-linux-setup/cp-system` | cp relevant files to their system destinations
-scripted | `~/.local/bin/packages-install` | install global node module packages & remaining system packages (pacman/aur)
-scripted | `TBD` | fix screen tearing with `20-intel.conf`
-scripted | `TBD` | natural scrolling with `40-liblinput.conf`
-scripted | `TBD` | autocpu-freq for thinkpad battery optimisation (installed with pacman, setup with `systemctl enable auto-cpufreq`)
-scripted | `TBD` | fix permissions for i3lock
-scripted | `TBD` | resume bluetooth after sleep via `/lib/systemd/system-sleep/bluetooth-resume`
-
-# new 
-
-## Scripts to run every boot 
-
-```sh
-npm list -g --depth 0 | tr -d "├── " | grep -v "/home" | grep -v -e "^$" > ~/.bak/npmgbak
+```shell
+$(cd ~/Downloads && wget --no-cache https://raw.githubusercontent.com/bluespore/linux-setup/main/install.sh && chmod +x install.sh) && sudo -u `whoami` ~/Downloads/install.sh; rm install.sh; source ~/.bash_profile;
 ```
 
 ## Resume bluetooth after sleep
@@ -85,9 +54,12 @@ Comments: Run with i3 config, ensures external display is detected and the appro
 - `~/.npm-global` created for global npm installs, set up by zshrc env var
 - `~/.n` created for node versions to be called via `n`
 - `~/.bak` store periodic lists of packages (npm, pacman, aur) for later install
+- `~/.linux-setup` this repo that bootstraps and binds all much of the process
 
 
 ## Keybinds etc  
+
+TODO: Note about the common keybinds
 
 All managed via the i3 config, and should transfer across systems easily now
 
@@ -104,18 +76,11 @@ UUID=7c4f6a75-32a2-4f2f-820c-65e85b9969e0 /mnt/backup-sd ext4    auto,nofail,noa
 
 ## System conf files 
 
-- ./new/20-intel.conf => `/etc/X11/xorg.conf.d/20-intel.conf`
-- ./new/40-libinput.conf => `/usr/share/X11/xorg.conf.d/40-libinput.conf`
+- 20-intel.conf => `/etc/X11/xorg.conf.d/20-intel.conf`
+- 40-libinput.conf => `/usr/share/X11/xorg.conf.d/40-libinput.conf`
+- TODO: bluetooth resume location 
 
 ## Backups 
 
 - backintime automatically creates a backup of `/home` every boot/reboot on `/mnt/backup-sd/backintime-manjaro`
 - timeshift automatically creates snapshots of the system every night on `/mnt/backup-sd/timeshift` 
-
-## Blur lock fix
-
-https://github.com/i3/i3lock/issues/119#issuecomment-643602565
-
-`sudo chmod 4755 "$(which unix_chkpwd)"`
-
-This means it's checking the _correct password_ when it blurs and you have to log in
