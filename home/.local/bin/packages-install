@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Install packages from existing bak lists 
+sudo pacman -S --needed --noconfirm $(cat ~/.bak/pacman-list)
+npm i -g $(cat ~/.bak/npmg-list)
