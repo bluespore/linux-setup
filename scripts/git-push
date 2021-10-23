@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Push any new changes to a specific automation 
+# branch on git, tagged with the date in the commit 
+# message. This should be run periodically via cron 
+# or system boot
+cd ~/.linux-setup
+git add home scripts system
+git commit -m "Backup $(date '+%F')"
+git push origin scripted-backups

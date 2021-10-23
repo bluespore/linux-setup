@@ -22,10 +22,10 @@ sudo apt install curl
 
 mkdir -p "$DIR"
 
-for s in "${SCRIPTS[@]}"
+for s in "${scripts[@]}"
 do
-    echo "Installing ${s}"
-    path="$DIR/$s"
+    echo "installing ${s}"
+    path="$dir/$s"
     touch $path
     curl -s https://raw.githubusercontent.com/bluespore/linux-setup/main/${s} > $path
     chmod +x "$path"

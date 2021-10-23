@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Copy all relevant `/home` directories from the 
+# cloned repo, inclusive of config & additional 
+# scripts required for daily operation and initial 
+# setup
+
+REPO_HOME=~/.linux-setup/home/
+HOST_HOME=~/
+
+# Dirs end with slash
+declare -a TARGETS=(
+  ".config/alacritty/"
+  ".config/autorandr/"
+  ".config/backintime/"
+  ".config/flameshot/"
+  ".config/fontconfig/"
+  ".config/gtk-2.0/"
+  ".config/gtk-3.0/"
+  ".config/i3/"
+  ".config/i3status/"
+  ".config/tmux/"
+  ".config/mimeapps.list" 
+  ".config/picom.conf"
+  ".local/bin/"
+  ".bak/"
+  ".fzf.zsh"
+  ".profile"
+  ".zshrc"
+)
+
+# If copying to host, from repo
+if [[ $1 == 'host' ]]; then 
+  SRC=$REPO_HOME
+  DEST=$HOST_HOME
+else
+  SRC=$HOST_HOME
+  DEST=$REPO_HOME
+fi
+
+for TARGET in "${TARGETS[@]}"
+do
+    # dealing with directory
+    if [[ $TARGET == */ ]]; then 
+      mkdir -p $DEST$TARGET
+    fi
+
+    rsync -vbr --exclude=.git --exclude=node_modules $SRC$TARGET $DEST$TARGET
+done
