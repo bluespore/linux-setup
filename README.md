@@ -23,6 +23,13 @@ Destination: ~/bin/hs
 Perm: chmod a+x
 Comments: Exec with 'hs' in shell. Could be tied to hooks, rofi or otherwise.
 
+## Display setup 
+
+Script: ./new/autorandr-config 
+Destination: ~/bin/autorandr-config 
+Perm: chmod a+x 
+Comments: Run with i3 config, ensures external display is detected and the appropriate xrandr config is loaded via autorandr 
+
 ## Structure
 
 - `~/bin` created for personal scripts, and found in path
