@@ -54,5 +54,13 @@ UUID=7c4f6a75-32a2-4f2f-820c-65e85b9969e0 /mnt/backup-sd ext4    auto,nofail,noa
 
 ## Backups 
 
-- backintime automatically creates a backup of /home every night on /mnt/backup-sd/backintime-manjaro
-- timeshift automatically creates snapshots of the system every night on /mnt/backup-sd
+- backintime automatically creates a backup of /home every boot/reboot on /mnt/backup-sd/backintime-manjaro
+- timeshift automatically creates snapshots of the system every night on /mnt/backup-sd/timeshift 
+
+## Blur lock fix
+
+https://github.com/i3/i3lock/issues/119#issuecomment-643602565
+
+`sudo chmod 4755 "$(which unix_chkpwd)"`
+
+This means it's checking the _correct password_ when it blurs and you have to log in
