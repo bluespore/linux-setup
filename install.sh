@@ -1,45 +1,47 @@
 #!/bin/bash
 
-# Bare bones retrieval of remote scripts for installation on the local machine 
+# Required strcture
+mkdir -p ~/.bak \
+          ~/code \
+          ~/work \
+          ~/screenshots \
+          ~/.npm-global \
+          ~/.n \
+          ~/.local/bin
 
-DIR=~/.local/bin
+# Update system
+sudo pacman -Syyu
 
-declare -a SCRIPTS=(
-    "setup-shell.sh"
-    "setup-keys.sh"
-    "setup-apps.sh"
-    "setup-dev-tools.sh"
-    "setup-thinkpad-battery.sh"
-    "setup-logitech-mouse.sh"
-    "setup-new-machine.sh"
-    "customise-spotify.sh"
-    "config-git.sh"
-)
+# Required packages
+sudo pacman -S --noconfirm yay git base-devel
 
-echo "Installing scripts to '${DIR}'"
+# Ohmyzsh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
-sudo apt install curl
+# Swap default shell to zsh
+chsh -s $(which zsh) $(whoami)
 
-mkdir -p "$DIR"
+# Clone repo
+git clone https://github.com/bluespore/linux-setup.git ~/.linux-setup
 
-for s in "${SCRIPTS[@]}"
-do
-    echo "Installing ${s}"
-    path="$DIR/$s"
-    touch $path
-    curl -s https://raw.githubusercontent.com/bluespore/linux-setup/main/${s} > $path
-    chmod +x "$path"
-done
+# Set .npm-global as default for global npm installs
+echo "prefix=/home/$(whoami)/.npm-global" >> ~/.npmrc
 
-echo "Scripts should now be available under '${DIR}'"
+# Rsync home
+~/.linux-setup/scripts/rsync-home host
 
-echo "Installing figlet and lolcat for visual shell output..."
+# Install pacman, aur & npm global packages 
+~/.local/bin/packages-install
 
-sudo apt-get install lolcat figlet
+# Ensure auto-cpufreq is started, and runs across boots
+# https://github.com/AdnanHodzic/auto-cpufreq
+systemctl start auto-cpufreq
+systemctl enable auto-cpufreq
 
-# Ensure local bin available in path 
-# lolcat is available at /usr/games so must be included 
-echo "PATH=\"/usr/games:${DIR}:$PATH\"" >> ~/.bash_profile
+# Fix lockscreen permissions, so the correct password is 
+# being checked when asked to unlock the computer
+# https://github.com/i3/i3lock/issues/119#issuecomment-643602565
+sudo chmod 4755 "$(which unix_chkpwd)"
 
-echo "Install complete!"
-echo "Scripts can now referenced in your PATH and can be called directly."
+# TODO: Steps for manually updating system files - Do not want to script this just in case
+# TODO: Note about fstab automounting of SD Card

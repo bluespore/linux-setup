@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Install all packages from list files that were 
+# generated periodically from a previous setup
+
+# pacman & aur 
+# If there happens to be packages existing on the system 
+# already, we can bypass it with `--needed` to save some 
+# effort, and bypass any required user input for conflicts 
+# and install confirmations with `--noconfirm`
+sudo pacman -S --needed --noconfirm $(cat ~/.bak/pacman-list)
+
+# global npm packages 
+# So long as your shell configuration has configured the 
+# global install location to `~/.npm-global`, then this is 
+# where they will be transferred to
+npm i -g $(cat ~/.bak/npmg-list)
