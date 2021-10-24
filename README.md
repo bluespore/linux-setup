@@ -1,4 +1,5 @@
 # linux-setup
+
 Personal configuration scripts for Manjaro linux (Thinkpad X1 Carbon Gen 6)
 
 # Overview 
@@ -13,74 +14,62 @@ Personal configuration scripts for Manjaro linux (Thinkpad X1 Carbon Gen 6)
 # Install script
 
 ```shell
-$(cd ~/Downloads && wget --no-cache https://raw.githubusercontent.com/bluespore/linux-setup/main/install.sh && chmod +x install.sh) && sudo -u `whoami` ~/Downloads/install.sh; rm install.sh; source ~/.bash_profile;
+$(cd ~/Downloads && wget --no-cache https://raw.githubusercontent.com/bluespore/linux-setup/main/install.sh && chmod +x install.sh) && sudo -u `whoami` ~/Downloads/install.sh; rm install.sh;
 ```
 
-## Resume bluetooth after sleep
+# System files 
 
-Script: ./new/bluetooth-resume
-Destination: /lib/systemd/system-sleep
-Perm: chmod a+x
-Comments: Will just work by itself
+Manually copy the files you need from `./system` to their relevant location. These steps are 
+deliberately not scripted to de-risk the install.
 
-## Bt headset profile toggle
-
-Script: ./new/toggle-headset-profile 
-Destination: ~/.local/bin/toggle-headset-profile
-Alias: hs
-Perm: chmod a+x
-Comments: Exec with 'hs' in shell. Could be tied to hooks, rofi or otherwise.
-
-## Bak script
-
-Script: ./new/backup-packages
-Destination: ~/.local/bin/backup-packages 
-Perm: chmod a+x
-Comments: package list backup script, to be run periodically (boot) 
-
-## Display setup 
-
-Script: ./new/autorandr-config 
-Destination: ~/bin/autorandr-config 
-Perm: chmod a+x 
-Comments: Run with i3 config, ensures external display is detected and the appropriate xrandr config is loaded via autorandr 
-
-## Structure
-
-- `~/.local/bin` created for personal scripts, and found in path
-- `~/code` for anything programming, grouped then by company/purpose name
-- `~/work` for any documents related to work 
-- `~/screenshots` for flameshot / peek saves
-- `~/.npm-global` created for global npm installs, set up by zshrc env var
-- `~/.n` created for node versions to be called via `n`
-- `~/.bak` store periodic lists of packages (npm, pacman, aur) for later install
-- `~/.linux-setup` this repo that bootstraps and binds all much of the process
+file | dest dir | desc
+--- | --- | ---
+`20-intel.conf` | `/etc/X11/xorg.conf.d/` | fix screen tearing on Intel integrated graphics
+`40-libinput.conf` | `/usr/share/X11/xorg.conf.d/` | adds natural scrolling to touch pad and mouse
+`bluetooth-resume` | `/lib/systemd/system-sleep/` | reconnects bluetooth when waking the machine from sleep
 
 
-## Keybinds etc  
+# Scripts available in $PATH 
 
-TODO: Note about the common keybinds
+The following scripts are available in `~/.local/bin`
 
-All managed via the i3 config, and should transfer across systems easily now
+script | desc | alias | exec
+--- | --- | --- | ---
+`autorandr-config` | detects display setup and configures xrandr via autorandr config | none | auto - i3 boot
+`packages-backup` | creates package list files in `~/.bak` for pacman, aur & npm | none | auto - i3 boot
+`packages-install` | part of this repo bootstrap, installs packages from the output of a periodic `packages-backup` on the running system | none | can ignore, bootstrap
+`styli.sh` | [automatic wallpapers](https://github.com/thevinter/styli.sh) | none | auto - i3, see config
+`toggle-headest-profile` | switches bt headset between handsfree & a2dp | `hs` | manual, when going in/out of calls
 
-- Shift+Ctrl+4 - take screenshot with flameshot
-- Mod+Shift+p - Power menu
+# Structure
 
-## Auto mount back-up SD card on boot
+dir | desc
+--- | ---
 
-Modify `fstab` (filesystem table) under `/etc/fstab` 
+`~/.bak` | store periodic lists of packages (npm, pacman, aur) for later install
+`~/.linux-setup` | **this repo install location** that bootstraps and binds all much of the process
+`~/.local/bin` | created for personal scripts, and found in path
+`~/.n` | created for node versions to be called via `n`
+`~/.npm-global` | created for global npm installs, set up by zshrc env var
+`~/code` | for anything programming, grouped then by company/purpose name
+`~/screenshots` | for flameshot / peek saves
+`~/work` | for any documents related to work 
+
+# Notes on keybinds and preferences  
+
+- [ ] TODO: Note about keybinds should be documented via the i3 config file itself
+
+# Backups process 
+
+- [backintime](https://backintime.readthedocs.io/en/latest/) automatically creates a backup of `/home` every boot on the MicroSD card mounted at `/mnt/backup-sd/backintime-manjaro`. Mostly a general backup plan for the home directory, and should make it easier to flip to another distro or machine if needed, as it's own it's own partition.
+- [timeshift](https://github.com/teejee2008/timeshift) automatically creates snapshots of the system every day on the MicroSD card mounted at `/mnt/backup-sd/timeshift`. This is used to roll back system profiles in case of system break from updates or otherwise.
+
+## Auto-mounting back-up SD card on boot
+
+We have to script the SD card mount for every boot so that timeshift and backintime have access 
+to it for their backup process. UUID might change, but this line gives you the required parameters 
+for the line in `/etc/fstab` (filesystem table)
 
 ```
 UUID=7c4f6a75-32a2-4f2f-820c-65e85b9969e0 /mnt/backup-sd ext4    auto,nofail,noatime,rw,user 0 0
 ```
-
-## System conf files 
-
-- 20-intel.conf => `/etc/X11/xorg.conf.d/20-intel.conf`
-- 40-libinput.conf => `/usr/share/X11/xorg.conf.d/40-libinput.conf`
-- TODO: bluetooth resume location 
-
-## Backups 
-
-- backintime automatically creates a backup of `/home` every boot/reboot on `/mnt/backup-sd/backintime-manjaro`
-- timeshift automatically creates snapshots of the system every night on `/mnt/backup-sd/timeshift` 
