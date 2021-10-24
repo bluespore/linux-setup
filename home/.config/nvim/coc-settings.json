@@ -1,0 +1,14 @@
+{
+  "prettier.requireConfig": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "markdown",
+    "Markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "git.addGBlameToVirtualText": true,
+  "git.enableGutters": true
+}

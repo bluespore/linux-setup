@@ -10,6 +10,7 @@ HOST_HOME=~/
 
 # Dirs end with slash
 declare -a TARGETS=(
+  ".bak/"
   ".config/alacritty/"
   ".config/autorandr/"
   ".config/backintime/"
@@ -19,12 +20,12 @@ declare -a TARGETS=(
   ".config/gtk-3.0/"
   ".config/i3/"
   ".config/i3status/"
-  ".config/tmux/"
   ".config/mimeapps.list" 
+  ".config/nvim/"
   ".config/picom.conf"
-  ".local/bin/"
-  ".bak/"
+  ".config/tmux/"
   ".fzf.zsh"
+  ".local/bin/"
   ".profile"
   ".zshrc"
 )
@@ -45,5 +46,5 @@ do
       mkdir -p $DEST$TARGET
     fi
 
-    rsync -vbr --exclude=.git --exclude=node_modules $SRC$TARGET $DEST$TARGET
+    rsync -vr --exclude=.git --exclude=node_modules $SRC$TARGET $DEST$TARGET
 done

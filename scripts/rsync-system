@@ -1,6 +1,0 @@
-#!/bin/bash 
-
-# copy system files to locations outside of the 
-# home directory, such as input configurations
-
-
