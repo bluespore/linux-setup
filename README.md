@@ -45,7 +45,6 @@ script | desc | alias | exec
 
 dir | desc
 --- | ---
-
 `~/.bak` | store periodic lists of packages (npm, pacman, aur) for later install
 `~/.linux-setup` | **this repo install location** that bootstraps and binds all much of the process
 `~/.local/bin` | created for personal scripts, and found in path
