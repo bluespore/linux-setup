@@ -37,7 +37,6 @@ script | desc | alias | exec
 --- | --- | --- | ---
 `autorandr-config` | detects display setup and configures xrandr via autorandr config | none | auto - i3 boot
 `packages-backup` | creates package list files in `~/.bak` for pacman, aur & npm | none | auto - i3 boot
-`packages-install` | part of this repo bootstrap, installs packages from the output of a periodic `packages-backup` on the running system | none | can ignore, bootstrap
 `styli.sh` | [automatic wallpapers](https://github.com/thevinter/styli.sh) | none | auto - i3, see config
 `toggle-headest-profile` | switches bt headset between handsfree & a2dp | `hs` | manual, when going in/out of calls
 
