@@ -71,3 +71,16 @@ for the line in `/etc/fstab` (filesystem table)
 ```
 UUID=7c4f6a75-32a2-4f2f-820c-65e85b9969e0 /mnt/backup-sd ext4    auto,nofail,noatime,rw,user 0 0
 ```
+
+# Misc notes
+
+## BT Headset 
+
+Situation:
+- BT headset connects
+- BT headset plays audio via handsfree profile
+- BT headset does not play audio via A2DP_Sink
+
+Try:
+- Re-installing `pulseaudio pulseaudio-bluetooth pulse-ctl`
+- Checking it isn't specifically muted in `pavucontrol`
