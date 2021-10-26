@@ -297,10 +297,10 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id sleep 1s; ~/.local/bin/autorandr-config
 
 # start picom compositor
-exec --no-startup-id sleep 2s; picom -b --config ~/.config/picom.conf; 
+exec --no-startup-id sleep 5s; picom -b --config ~/.config/picom.conf; 
 
 # set random background
-exec --no-startup-id sleep 3s; ~/.local/bin/styli.sh -n -h 1440 -w 3440 -s forest -b bg-scale
+exec --no-startup-id sleep 10s; ~/.local/bin/styli.sh -n -h 1440 -w 3440 -s forest -b bg-scale
 
 # --------------------------------------------------------------------------------
 # Backup to linux-setup repo on boot
