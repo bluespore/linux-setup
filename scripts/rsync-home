@@ -45,5 +45,5 @@ do
       mkdir -p $DEST$TARGET
     fi
 
-    rsync -vbr --exclude=.git --exclude=node_modules $SRC$TARGET $DEST$TARGET
+    rsync -vr --exclude=.git --exclude=node_modules $SRC$TARGET $DEST$TARGET
 done
