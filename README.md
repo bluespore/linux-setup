@@ -53,10 +53,6 @@ dir | desc
 `~/screenshots` | for flameshot / peek saves
 `~/work` | for any documents related to work 
 
-# Notes on keybinds and preferences  
-
-- [ ] TODO: Note about keybinds should be documented via the i3 config file itself
-
 # Backups process 
 
 - [backintime](https://backintime.readthedocs.io/en/latest/) automatically creates a backup of `/home` every boot on the MicroSD card mounted at `/mnt/backup-sd/backintime-manjaro`. Mostly a general backup plan for the home directory, and should make it easier to flip to another distro or machine if needed, as it's own it's own partition.
