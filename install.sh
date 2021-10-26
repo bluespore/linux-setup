@@ -42,6 +42,3 @@ systemctl enable auto-cpufreq
 # being checked when asked to unlock the computer
 # https://github.com/i3/i3lock/issues/119#issuecomment-643602565
 sudo chmod 4755 "$(which unix_chkpwd)"
-
-# TODO: Steps for manually updating system files - Do not want to script this just in case
-# TODO: Note about fstab automounting of SD Card
