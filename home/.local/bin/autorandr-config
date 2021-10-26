@@ -4,4 +4,5 @@ if [[ $XRANDR_OUTPUT != *"DP2 connected"* ]]; then
   autorandr -l mobile
 else
   autorandr -l external
+  xrandr --rate 100
 fi
