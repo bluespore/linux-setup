@@ -1,0 +1,41 @@
+# unbind original
+unbind C-b
+# rebind prefix
+set -g prefix C-Space 
+# send ctrl-a to other apps 
+bind C-Space send-prefix 
+
+# pane splitting
+bind = split-window -h
+bind - split-window -v 
+
+# select panes via hjkl
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+# pane resizing via shift
+bind -r H resize-pane -L 15
+bind -r J resize-pane -D 15
+bind -r K resize-pane -U 15
+bind -r L resize-pane -R 15
+
+# move windows 
+bind -r C-h select-window -t :-
+bind -r C-l select-window -t :+
+
+# Mouse support - set to on if you want to use the mouse.
+set -g mouse on
+
+#set -g default-terminal "screen.xterm-256color"
+#set -g default-terminal "tmux-256color"
+set -g default-terminal "xterm-256color"
+set -ag terminal-overrides ",xterm-256color:RGB"
+#set -ag terminal-overrides ",tmux-256color:RGB"
+set -g default-shell /bin/zsh
+
+# copy to system clipboard
+bind C-c run "tmux save-buffer - | xclip -i -sel clipboard"
+
+# paste from system clipboard
+bind C-v run "tmux set-buffer \"$(xclip -o -sel clipboard)\"; tmux paste-buffer"

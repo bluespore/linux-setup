@@ -1,0 +1,7 @@
+#!/bin/bash
+XRANDR_OUTPUT=$(xrandr)
+if [[ $XRANDR_OUTPUT != *"DP2 connected"* ]]; then
+  autorandr -l mobile
+else
+  autorandr -l external
+fi
