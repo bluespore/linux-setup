@@ -126,8 +126,6 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}%{get(b:,'coc
 "hi! NonText ctermbg=NONE guibg=NONE
 "hi! EndOfBuffer ctermbg=NONE guibg=NONE
 
-
-
 " --------------------------------------------------------------
 "  Formatting
 " --------------------------------------------------------------
@@ -194,6 +192,9 @@ nmap <C-P> :GFiles<CR>
 
 " DoGe (Document Generator)
 nmap <S-C> :DogeGenerate<CR>
+
+" Copy to system clipboard
+vnoremap <C-c> "+y
 
 " --------------------------------------------------------------
 "  General config
