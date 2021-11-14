@@ -90,6 +90,8 @@ call plug#begin("~/.vim/plugged")
 	Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 
+  Plug 'github/copilot.vim'
+
 call plug#end()
 
 " --------------------------------------------------------------
