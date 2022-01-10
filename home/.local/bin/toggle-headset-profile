@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SPEAK_PROFILE="handsfree_head_unit"
-MEDIA_PROFILE="a2dp_sink"
+SPEAK_PROFILE="headset-head-unit"
+MEDIA_PROFILE="a2dp-sink-aac"
 PACTL_INFO=$(pactl info | grep "Sink:")
 HEADSET_ID="bluez_card.4C_87_5D_78_60_DC" # Bose QC35 II
 DUNST_ID="--hint=string:x-dunst-stack-tag:headset_profile_change"
@@ -11,5 +11,5 @@ if grep -q "$SPEAK_PROFILE" <<< "$PACTL_INFO"; then
   pactl set-card-profile $HEADSET_ID $MEDIA_PROFILE
 else
   notify-send $DUNST_ID "Headset now: Calls"
-  pactl set-card-profile $HEADSET_ID $SPEAK_PROFILE
+  pactl set-card-profile $HEADSET_ID "$SPEAK_PROFILE-msbc"
 fi
