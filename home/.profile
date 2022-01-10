@@ -4,4 +4,4 @@ export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 # fix "xdg-open fork-bomb" export your preferred browser from here
 export BROWSER=/usr/bin/vivaldi-stable
 export PATH=~/.npm-global/bin:$PATH
-export PIPEWIRE_LATENCY="128/48000"
+export PIPEWIRE_LATENCY="512/48000"
