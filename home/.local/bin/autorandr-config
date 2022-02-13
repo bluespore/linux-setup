@@ -2,7 +2,7 @@
 XRANDR_OUTPUT=$(xrandr)
 if [[ $XRANDR_OUTPUT != *"DP2 connected"* ]]; then
   autorandr -l mobile
-  xrandr --dpi 192
+  xrandr --dpi 120
 else
   autorandr -l external
   xrandr --rate 100
