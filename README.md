@@ -70,6 +70,12 @@ UUID=7c4f6a75-32a2-4f2f-820c-65e85b9969e0 /mnt/backup-sd ext4    auto,nofail,noa
 
 # Misc notes
 
+## HiDPI screen scale 
+
+- Add `GDK_SCALE=1.2` to `~/.profile`
+- Change `Xft.dpi` to `120` in `~/.Xresources`
+- Ensure `xrandr` is setting the `--dpi` flag to `120` for Thinkpad (./home/.local/bin/autorandr-config)
+
 ## BT Headset 
 
 Situation:
