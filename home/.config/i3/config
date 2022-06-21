@@ -95,7 +95,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # app launcher
-bindsym $mod+d exec --no-startup-id ~/.config/rofi/bin/launcher_text
+bindsym $mod+d exec --no-startup-id dmenu_recency
 
 # network menu
 bindsym $mod+Shift+n exec --no-startup-id ~/.config/rofi/bin/menu_network
